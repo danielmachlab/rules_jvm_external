@@ -28,7 +28,10 @@ load(
 )
 
 _BUILD = """
-package(default_visibility = ["//visibility:{visibility}"])
+package(
+    default_visibility = ["//visibility:{visibility}"],
+    default_applicable_licenses = {applicable_licenses}
+)
 
 load("@rules_jvm_external//private/rules:jvm_import.bzl", "jvm_import")
 load("@rules_jvm_external//private/rules:jetifier.bzl", "jetify_aar_import", "jetify_jvm_import")
@@ -1042,6 +1045,7 @@ def _coursier_fetch_impl(repository_ctx):
         "BUILD",
         (_BUILD + _BUILD_PIN + outdated_build_file_content).format(
             visibility = "private" if repository_ctx.attr.strict_visibility else "public",
+            applicable_licenses = [str(license) for license in repository_ctx.attr.applicable_licenses],
             repository_name = repository_name,
             imports = generated_imports,
             aar_import_statement = _get_aar_import_statement_or_empty_str(repository_ctx),

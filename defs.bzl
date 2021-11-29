@@ -26,6 +26,7 @@ DEFAULT_REPOSITORY_NAME = "maven"
 def maven_install(
         name = DEFAULT_REPOSITORY_NAME,
         repositories = [],
+        applicable_licenses = [],
         artifacts = [],
         fail_on_missing_checksum = True,
         fetch_sources = False,
@@ -125,6 +126,7 @@ def maven_install(
         # invocation after this.
         name = name if maven_install_json == None else "unpinned_" + name,
         repositories = repositories_json_strings,
+        applicable_licenses = applicable_licenses,
         artifacts = artifacts_json_strings,
         fail_on_missing_checksum = fail_on_missing_checksum,
         fetch_sources = fetch_sources,
